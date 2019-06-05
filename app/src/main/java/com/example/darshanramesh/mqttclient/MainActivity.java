@@ -14,19 +14,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }finally {
-                    startActivity(new Intent(MainActivity.this,navigationActivity.class));
-                }
-
-            }
-        });
-        t.start();
+        if(isNetworkAvailable()){
+            startActivity(new Intent(MainActivity.this,navigationActivity.class));    
+        } else{
+            Toast.makeText(navigationActivity.this,"Make sure your phone is connected to internet",Toast.LENGTH_SHORT).show();
+        }
+    
     }
 }
